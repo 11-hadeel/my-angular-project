@@ -1,0 +1,49 @@
+.program-description {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background-color: #f9f9f9;
+}
+
+.section h2 {
+  color: #68338D;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #68338D;
+  padding-bottom: 10px;
+}
+
+.subsection {
+  margin-bottom: 20px;
+}
+
+.subsection h3 {
+  color: #302435;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.subsection p {
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.deadline {
+  background-color: hsl(283, 60%, 93%);
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 4px solid #68338D;
+  margin-top: 20px;
+}
+
+.deadline h3 {
+  color: #68338D;
+  margin-bottom: 10px;
+}
+
+.deadline-date {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #68338D;
+}

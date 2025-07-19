@@ -1,0 +1,312 @@
+<div class="form-container">
+  <h2>Application Form</h2>
+  
+  <!-- Success Message -->
+  @if (submitSuccess) {
+    <div class="success-message">
+      <mat-icon>check_circle</mat-icon>
+      <h3>Application Submitted Successfully!</h3>
+      <p>We will review your application and contact you soon.</p>
+    </div>
+  }
+  
+  <form [formGroup]="applicationForm" (ngSubmit)="onSubmit()" *ngIf="!submitSuccess">
+    
+    <!-- Personal Information -->
+    <div class="form-section">
+      <h3>1. Personal Information</h3>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullName" required>
+        @if (f['fullName'].hasError('required')) {
+          <mat-error>Full name is required</mat-error>
+        }
+        @if (f['fullName'].hasError('minlength')) {
+          <mat-error>Full name must be at least 2 characters long</mat-error>
+        }
+        @if (f['fullName'].hasError('pattern')) {
+          <mat-error>Full name can only contain letters and spaces</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required>
+        @if (f['email'].hasError('required')) {
+          <mat-error>Email is required</mat-error>
+        }
+        @if (f['email'].hasError('email')) {
+          <mat-error>Please enter a valid email</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" required>
+        @if (f['phoneNumber'].hasError('required')) {
+          <mat-error>Phone number is required</mat-error>
+        }
+        @if (f['phoneNumber'].hasError('pattern')) {
+          <mat-error>Please enter a valid phone number (digits, spaces, +, -, () allowed)</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Nationality</mat-label>
+        <input matInput formControlName="nationality" required>
+        @if (f['nationality'].hasError('required')) {
+          <mat-error>Nationality is required</mat-error>
+        }
+        @if (f['nationality'].hasError('minlength')) {
+          <mat-error>Nationality must be at least 2 characters long</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Date of Birth</mat-label>
+        <input matInput type="date" formControlName="dateOfBirth" required>
+        @if (f['dateOfBirth'].hasError('required')) {
+          <mat-error>Date of birth is required</mat-error>
+        }
+        @if (f['dateOfBirth'].hasError('ageValidator')) {
+          <mat-error>You must be at least 16 years old to apply</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender" required>
+          <mat-option value="male">Male</mat-option>
+          <mat-option value="female">Female</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+        @if (f['gender'].hasError('required')) {
+          <mat-error>Gender is required</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>City / Country of residence</mat-label>
+        <input matInput formControlName="residence" required>
+        @if (f['residence'].hasError('required')) {
+          <mat-error>City/Country of residence is required</mat-error>
+        }
+        @if (f['residence'].hasError('minlength')) {
+          <mat-error>Please enter at least 2 characters</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    
+    <!-- Education & Background -->
+    <div class="form-section">
+      <h3>2. Education & Background</h3>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Highest Education Level</mat-label>
+        <mat-select formControlName="educationLevel" required>
+          <mat-option value="highschool">High School</mat-option>
+          <mat-option value="bachelor">Bachelor's</mat-option>
+          <mat-option value="master">Master's</mat-option>
+          <mat-option value="phd">PhD</mat-option>
+        </mat-select>
+        @if (f['educationLevel'].hasError('required')) {
+          <mat-error>Education level is required</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Field of Study</mat-label>
+        <input matInput formControlName="fieldOfStudy" placeholder="e.g., Computer Science, IT, Engineering, Other">
+        @if (f['fieldOfStudy'].hasError('minlength')) {
+          <mat-error>Please enter at least 2 characters</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Are you currently studying or working?</mat-label>
+        <mat-select formControlName="currentStatus" required>
+          <mat-option value="yes">Yes</mat-option>
+          <mat-option value="no">No</mat-option>
+        </mat-select>
+        @if (f['currentStatus'].hasError('required')) {
+          <mat-error>Please select an option</mat-error>
+        }
+      </mat-form-field>
+      
+      @if (f['currentStatus'].value === 'yes') {
+        <mat-form-field appearance="outline">
+          <mat-label>Current occupation or employer</mat-label>
+          <input matInput formControlName="currentOccupation">
+          @if (f['currentOccupation'].hasError('required')) {
+            <mat-error>Current occupation is required when you are studying or working</mat-error>
+          }
+          @if (f['currentOccupation'].hasError('minlength')) {
+            <mat-error>Please enter at least 2 characters</mat-error>
+          }
+        </mat-form-field>
+      }
+    </div>
+    
+    <!-- Technical Experience -->
+    <div class="form-section">
+      <h3>3. Technical Experience</h3>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Do you have any experience in web development?</mat-label>
+        <mat-select formControlName="hasWebExperience" required>
+          <mat-option value="yes">Yes</mat-option>
+          <mat-option value="no">No</mat-option>
+        </mat-select>
+        @if (f['hasWebExperience'].hasError('required')) {
+          <mat-error>Please select an option</mat-error>
+        }
+      </mat-form-field>
+      
+      @if (f['hasWebExperience'].value === 'yes') {
+        <mat-form-field appearance="outline">
+          <mat-label>Please describe your experience</mat-label>
+          <textarea matInput formControlName="webExperienceDescription" rows="3" placeholder="e.g., projects, frameworks used"></textarea>
+          @if (f['webExperienceDescription'].hasError('required')) {
+            <mat-error>Please describe your web development experience</mat-error>
+          }
+          @if (f['webExperienceDescription'].hasError('minlength')) {
+            <mat-error>Please provide at least 10 characters description</mat-error>
+          }
+        </mat-form-field>
+      }
+    </div>
+    
+    <!-- Language Skills -->
+    <div class="form-section">
+      <h3>4. Language Skills</h3>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Level of English</mat-label>
+        <mat-select formControlName="englishLevel" required>
+          <mat-option value="beginner">Beginner</mat-option>
+          <mat-option value="intermediate">Intermediate</mat-option>
+          <mat-option value="upper-intermediate">Upper-Intermediate</mat-option>
+          <mat-option value="advanced">Advanced</mat-option>
+          <mat-option value="fluent">Fluent</mat-option>
+        </mat-select>
+        @if (f['englishLevel'].hasError('required')) {
+          <mat-error>Please select your English level</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    
+    <!-- Motivation & Goals -->
+    <div class="form-section">
+      <h3>5. Motivation & Goals</h3>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>Why do you want to join this full stack web development program?</mat-label>
+        <textarea matInput formControlName="motivation" rows="4" required></textarea>
+        @if (f['motivation'].hasError('required')) {
+          <mat-error>This field is required</mat-error>
+        }
+        @if (f['motivation'].hasError('minlength')) {
+          <mat-error>Please provide at least 50 characters</mat-error>
+        }
+        @if (f['motivation'].hasError('maxlength')) {
+          <mat-error>Maximum 500 characters allowed</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>What are your career goals after completing this program?</mat-label>
+        <textarea matInput formControlName="careerGoals" rows="4" required></textarea>
+        @if (f['careerGoals'].hasError('required')) {
+          <mat-error>This field is required</mat-error>
+        }
+        @if (f['careerGoals'].hasError('minlength')) {
+          <mat-error>Please provide at least 50 characters</mat-error>
+        }
+        @if (f['careerGoals'].hasError('maxlength')) {
+          <mat-error>Maximum 500 characters allowed</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    
+    <!-- Other Details -->
+    <div class="form-section">
+      <h3>6. Other Details</h3>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>LinkedIn profile URL (optional)</mat-label>
+        <input matInput formControlName="linkedinUrl" type="url" placeholder="https://linkedin.com/in/yourprofile">
+        @if (f['linkedinUrl'].hasError('pattern')) {
+          <mat-error>Please enter a valid LinkedIn URL</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>GitHub or portfolio URL (optional)</mat-label>
+        <input matInput formControlName="portfolioUrl" type="url" placeholder="https://github.com/yourusername or https://yourportfolio.com">
+        @if (f['portfolioUrl'].hasError('pattern')) {
+          <mat-error>Please enter a valid URL</mat-error>
+        }
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>How did you hear about this program?</mat-label>
+        <mat-select formControlName="hearAbout" required>
+          <mat-option value="social-media">Social Media</mat-option>
+          <mat-option value="website">Website</mat-option>
+          <mat-option value="referral">Referral</mat-option>
+          <mat-option value="other">Other</mat-option>
+        </mat-select>
+        @if (f['hearAbout'].hasError('required')) {
+          <mat-error>Please select how you heard about this program</mat-error>
+        }
+      </mat-form-field>
+    </div>
+    
+    <!-- Consent & Commitment -->
+    <div class="form-section">
+      <h3>7. Consent & Commitment</h3>
+      
+      <mat-checkbox formControlName="confirmTruth" required>
+        I confirm that all the information provided is true and accurate.
+      </mat-checkbox>
+      @if (f['confirmTruth'].hasError('required') && f['confirmTruth'].touched) {
+        <mat-error class="checkbox-error">You must confirm that all information is true and accurate</mat-error>
+      }
+      
+      <mat-checkbox formControlName="agreeTerms" required>
+        I agree to the terms and conditions and the privacy policy.
+      </mat-checkbox>
+      @if (f['agreeTerms'].hasError('required') && f['agreeTerms'].touched) {
+        <mat-error class="checkbox-error">You must agree to the terms and conditions</mat-error>
+      }
+      
+      <mat-checkbox formControlName="commitProgram" required>
+        I commit to fully adhering to the program schedule and requirements as outlined, and I understand that failure to comply may result in my exclusion from the program.
+      </mat-checkbox>
+      @if (f['commitProgram'].hasError('required') && f['commitProgram'].touched) {
+        <mat-error class="checkbox-error">You must commit to the program requirements</mat-error>
+      }
+    </div>
+    
+    <div class="submit-section">
+      <button mat-raised-button color="primary" type="submit" [disabled]="isLoading">
+        @if (isLoading) {
+          <span class="button-loading">
+            <mat-spinner diameter="20"></mat-spinner>
+            Processing...
+          </span>
+        } @else {
+          Submit Application
+        }
+      </button>
+      
+      @if (submitted && applicationForm.invalid) {
+        <div class="form-error-message">
+          <mat-icon>error_outline</mat-icon>
+          <span>Please fill in all required fields correctly.</span>
+        </div>
+      }
+    </div>
+  </form>
+</div>
